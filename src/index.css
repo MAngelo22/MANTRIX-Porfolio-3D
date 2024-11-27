@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Matrix';
+  src: url('/fonts/matrix.woff') format('woff');
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00ff00;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00cc00;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: black;
+  font-family: 'Matrix', monospace;
+  color: #00ff00;
+}
+
+/* Contenedor de las tarjetas */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px; /* Agregado para asegurar que las tarjetas no estén pegadas a los bordes */
+}
+
+/* Estilo de la tarjeta */
+.card {
+  width: 300px; /* Tamaño base para pantallas grandes */
+  max-width: 100%; /* Aseguramos que no sobrepasen el contenedor */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  transition: transform 0.3s;
+  box-sizing: border-box; /* Aseguramos que padding no afecte el tamaño */
+}
+
+/* Efecto hover de la tarjeta */
+.card:hover {
+  transform: translateY(-10px); /* Efecto hover para tarjetas */
+}
+
+.card-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* Asegura que la imagen cubra el espacio sin deformarse */
+}
+
+/* Pantallas medianas (tabletas) */
+@media (max-width: 1024px) {
+  .card {
+    width: 45%; /* Las tarjetas ocupan el 45% del contenedor */
+  }
+
+  .card-image {
+    height: 250px; /* Ajustamos el tamaño de las imágenes para pantallas medianas */
+  }
+}
+
+/* Pantallas pequeñas (móviles en paisaje) */
+@media (max-width: 768px) {
+  .card {
+    width: 45%; /* Las tarjetas ocupan el 45% del contenedor en pantallas más pequeñas */
+  }
+
+  .card-image {
+    height: 200px; /* Ajustamos la altura de las imágenes */
+  }
+}
+
+/* Pantallas muy pequeñas (móviles en retrato) */
+@media (max-width: 480px) {
+  .card {
+    width: 90%; /* Las tarjetas ocupan el 90% del ancho de la pantalla */
+    margin-bottom: 20px; /* Espaciado entre tarjetas en pantallas muy pequeñas */
+  }
+
+  .card-image {
+    height: 150px; /* Reducción de la altura de las imágenes en pantallas pequeñas */
+  }
+}
+
+/* Asegurarse que en pantallas más grandes las tarjetas se distribuyan bien */
+@media (min-width: 1200px) {
+  .card {
+    width: 23%; /* Ajustamos para pantallas grandes, las tarjetas ocupan el 23% */
+  }
+}
