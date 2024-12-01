@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { Text, Html, useTexture } from "@react-three/drei";
+import { Text, Button,  Html, useTexture } from "@react-three/drei";
 
 interface FloatingCardProps {
   position: [number, number, number];
@@ -67,7 +67,6 @@ export function FloatingCard({ position, rotation, card }: FloatingCardProps) {
         >
           {projects[currentProject].name}
         </Text>
-
 
         <Text
           position={[0, -2.1, 0]}
@@ -197,11 +196,9 @@ export function FloatingCard({ position, rotation, card }: FloatingCardProps) {
     if (card.title === "Profile") {
       return (
         <group position={[0, -0.5, 0.06]}>
-          {" "}
           {/* Ajusta el eje Y para centrar */}
           {/* Profile Image */}
           <mesh position={[0, 1.2, 0]}>
-            {" "}
             {/* Imagen ligeramente más arriba */}
             <planeGeometry args={[2, 2]} />
             <meshBasicMaterial
@@ -248,9 +245,33 @@ export function FloatingCard({ position, rotation, card }: FloatingCardProps) {
           >
             {card.content.description}
           </Text>
+          {/* Code Button */}
+          <group
+            position={[1.5, -2.2, 0]} // Ajustado más abajo
+            onClick={() => handleClick(card.content.CV)} // Enlace dinámico
+            onPointerOver={() => setHovered(`code-${card.title}`)}
+            onPointerOut={() => setHovered(null)}
+          >
+            <mesh>
+              <planeGeometry args={[0.8, 0.4]} />
+              <meshBasicMaterial
+                color={hovered === `code-${card.title}` ? "#00ff00" : "#003300"}
+                transparent
+                opacity={0.3}
+              />
+            </mesh>
+            <Text
+              position={[0, 0, 0.01]}
+              fontSize={0.2}
+              color={hovered === `code-${card.title}` ? "#ffffff" : "#00ff00"}
+            >
+              View CV
+            </Text>
+          </group>
         </group>
       );
     }
+    
 
     // Código para ambas secciones
     if (card.title === "Experience" || card.title === "Education") {
@@ -291,9 +312,6 @@ export function FloatingCard({ position, rotation, card }: FloatingCardProps) {
       );
     }
 
-
-
-    
     if (card.title === "Projects") {
       return <ProjectCarousel projects={card.content} />;
     }
@@ -307,7 +325,7 @@ export function FloatingCard({ position, rotation, card }: FloatingCardProps) {
         },
         { label: "Email", url: "mailto:miguelangel.developer@gmail.com" },
         { label: "Web 2D", url: "https://miguelangeldeveloper.netlify.app/" },
-        { label: "Web 3D", url: "https://manl3d.netlify.app/" }
+        { label: "Web 3D", url: "https://manl3d.netlify.app/" },
       ];
 
       return (

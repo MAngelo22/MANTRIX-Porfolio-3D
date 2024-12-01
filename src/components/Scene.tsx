@@ -33,6 +33,7 @@ export function Scene() {
         last: 'Núñez López',
         role: 'Full Stack Developer',
         description: 'Passionate developer with a creative mindset',
+        CV: 'https://media.licdn.com/dms/document/media/v2/D4D2DAQG-_MDb4hkKig/profile-treasury-document-pdf-analyzed/profile-treasury-document-pdf-analyzed/0/1731675818862?e=1733961600&v=beta&t=pKKVDpDnaPWGh3JOIuyrOC6iVfcKJIF-brVcXBJRoW0',
       },
     },
     {
