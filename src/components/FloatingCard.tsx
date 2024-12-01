@@ -306,10 +306,12 @@ export function FloatingCard({ position, rotation, card }: FloatingCardProps) {
           url: "https://linkedin.com/in/miguelangelnunezlopez",
         },
         { label: "Email", url: "mailto:miguelangel.developer@gmail.com" },
+        { label: "Web 2D", url: "https://miguelangeldeveloper.netlify.app/" },
+        { label: "Web 3D", url: "https://manl3d.netlify.app/" }
       ];
 
       return (
-        <group position={[0, 0.5, 0.06]}>
+        <group position={[0, 1.2, 0.06]}>
           {links.map((link, index) => (
             <group
               key={link.label}
