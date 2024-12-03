@@ -57,8 +57,8 @@ export function Scene() {
       title: 'Languages',
       content: [
         { language: 'Spanish', level: 'Native' },
-        { language: 'English', level: 'Medium' },
-        { language: 'Portuguese', level: 'Low' },
+        { language: 'English', level: 'B1' },
+        { language: 'Portuguese', level: 'A1' },
       ],
     },
     {
