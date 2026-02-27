@@ -1,6 +1,4 @@
-import { useRef, useState } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
-import * as THREE from "three";
+import { useState } from "react";
 import { Text, Button,  Html, useTexture } from "@react-three/drei";
 
 interface FloatingCardProps {
@@ -13,19 +11,8 @@ interface FloatingCardProps {
 }
 
 export function FloatingCard({ position, rotation, card }: FloatingCardProps) {
-  const meshRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState<string | null>(null);
   const [currentProject, setCurrentProject] = useState(0);
-  const { camera } = useThree();
-
-  useFrame(({ clock }) => {
-    if (meshRef.current) {
-      meshRef.current.position.y =
-        position[1] + Math.sin(clock.getElapsedTime() * 0.5) * 0.2;
-      meshRef.current.rotation.y =
-        rotation[1] + Math.sin(clock.getElapsedTime() * 0.3) * 0.05;
-    }
-  });
 
   const handleClick = (url: string) => {
     if (url.startsWith("mailto:")) {
@@ -276,33 +263,35 @@ export function FloatingCard({ position, rotation, card }: FloatingCardProps) {
     // Código para ambas secciones
     if (card.title === "Experience" || card.title === "Education") {
       return (
-        <group position={[0, 0.5, 0.06]}>
+        <group position={[0, 0, 0.06]}>
           {card.content.map((item, index) => (
-            <group key={index} position={[0, -index * 1.2, 0]}>
+            <group key={index} position={[0, 1.2 - index * 1.55, 0]}>
               <Text
-                position={[0, 0.3, 0]}
+                position={[0, 0.28, 0]}
                 fontSize={0.2}
                 color="#00ff00"
                 anchorX="center"
-                maxWidth={3} // Establece un ancho máximo para el texto
-                wrapText // Habilita el ajuste de texto
+                anchorY="middle"
+                maxWidth={3.2}
               >
                 {item.role || item.degree}
               </Text>
-
               <Text
-                position={[0, -0.1, 0]}
+                position={[0, -0.02, 0]}
                 fontSize={0.15}
                 color="#75ff75"
                 anchorX="center"
+                anchorY="middle"
+                maxWidth={3.2}
               >
                 {item.company || item.institution}
               </Text>
               <Text
-                position={[0, -0.4, 0]}
+                position={[0, -0.3, 0]}
                 fontSize={0.12}
                 color="#75ff75"
                 anchorX="center"
+                anchorY="middle"
               >
                 {item.period}
               </Text>
@@ -318,6 +307,7 @@ export function FloatingCard({ position, rotation, card }: FloatingCardProps) {
 
     if (card.title === "Contact") {
       const links = [
+        { label: "Web OS", url: "https://manl-os.netlify.app/" },
         { label: "GitHub", url: "https://github.com/Mangelo22" },
         {
           label: "LinkedIn",
@@ -395,7 +385,7 @@ export function FloatingCard({ position, rotation, card }: FloatingCardProps) {
   };
 
   return (
-    <group ref={meshRef} position={position}>
+    <group position={position} rotation={rotation}>
       {/* Glow effect */}
       <mesh position={[0, 0, -0.05]}>
         <planeGeometry args={[4.2, 6.2]} />

@@ -6,7 +6,8 @@ import { FloatingCard } from './FloatingCard';
 import { MatrixBackground } from './MatrixBackground';
 
 
-const CARD_DISTANCE = 8;
+const CARD_DISTANCE = 10;
+const BILLBOARD_X = 4.8;
 
 export function Scene() {
   const { camera } = useThree();
@@ -15,7 +16,7 @@ export function Scene() {
 
   useFrame(() => {
     if (groupRef.current) {
-      const targetZ = -scroll.offset * (CARD_DISTANCE * 6);
+      const targetZ = -scroll.offset * (CARD_DISTANCE * (cards.length - 1));
       camera.position.z = THREE.MathUtils.lerp(
         camera.position.z,
         5 + targetZ,
@@ -39,18 +40,17 @@ export function Scene() {
     {
       title: 'Experience',
       content: [
-        { company: 'Doers DF', role: 'Full Stack Developer Internship', period: 'Sep.2024-Nov.2024' },
-        { company: 'Telefonica Global Technology', role: 'Salesforce Development Internship', period: 'Oct.2020-Feb.2021' },
-        //{ company: 'Prosegur/Eulen', role: 'Security guard', period: 'May.2020-Sep.2023' },
-        { company: 'Sage', role: 'Technician Support Internship', period: 'May.2017-Jun.2017' }
+        { company: 'Mindway', role: 'IT Specialist', period: 'Oct 2025 - Present' },
+        { company: 'Elle Education', role: 'IT Specialist', period: 'Oct 2025 - Present' },
+        { company: 'Ayesa', role: 'IT Support Technician', period: 'Feb 2025 - Oct 2025' },
       ],
     },
     {
       title: 'Education',
       content: [
-        { institution: 'UNIR', degree: 'FP II Desarrollo de Aplicaciones Web', period: '2023-2025' },
-        { institution: 'ITT', degree: 'FP II Desarrollo de Aplicaciones Multiplataforma', period: '2019-2021' },
-        { institution: 'Fundacion Tomillo', degree: 'FP I Tecnico Sistemas Microinformaticos y Redes', period: '2019-2021' },
+        { institution: 'UNIR - Universidad Internacional de La Rioja', degree: 'CFGS Desarrollo de Aplicaciones Web', period: 'Sep 2023 - Jun 2025' },
+        { institution: 'Instituto Tecnologico Telefonica', degree: 'Grado Superior Desarrollo de Aplicaciones Multiplataforma', period: 'Jan 2018 - Feb 2021' },
+        { institution: 'Fundacion Tomillo', degree: 'Grado Medio SMR (Sistemas Microinformaticos y Redes)', period: '2015 - 2017' },
       ],
     },
     {
@@ -142,16 +142,20 @@ export function Scene() {
 
   return (
     <group ref={groupRef}>
-      <MatrixBackground />
-      {cards.map((card, index) => (
+      <MatrixBackground cardCount={cards.length} cardSpacing={CARD_DISTANCE} />
+      {cards.map((card, index) => {
+        const side = index % 2 === 0 ? -1 : 1;
+        return (
+          // Alternate left/right so cards look like city billboards.
+          // Camera moves through the center lane on Z.
         <FloatingCard
           key={card.title}
-          position={[0, 0, -CARD_DISTANCE * index]}
-          rotation={[0, Math.sin(index * 0.1) * 0.1, 0]}
+          position={[BILLBOARD_X * side, 0.3, -CARD_DISTANCE * index]}
+          rotation={[0, 0, 0]}
           card={card}
         />
-      ))}
+        );
+      })}
     </group>
   );
 }
-

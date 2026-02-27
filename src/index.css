@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: 'Matrix';
-  src: url('/fonts/matrix.woff') format('woff');
+  src: url('/fonts/matrix.ttf') format('truetype');
 }
 
 ::-webkit-scrollbar {
@@ -26,10 +26,16 @@
 
 body {
   margin: 0;
-  overflow-x: hidden;
+  overflow: hidden;
   background: black;
   font-family: 'Matrix', monospace;
   color: #00ff00;
+}
+
+html,
+#root {
+  height: 100%;
+  overflow: hidden;
 }
 
 /* Contenedor de las tarjetas */
