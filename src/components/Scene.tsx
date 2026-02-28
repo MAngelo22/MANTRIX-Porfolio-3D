@@ -10,9 +10,13 @@ const CARD_DISTANCE = 10;
 const BILLBOARD_X = 4.8;
 
 export function Scene() {
-  const { camera } = useThree();
+  const { camera, size } = useThree();
   const scroll = useScroll();
   const groupRef = useRef<THREE.Group>(null);
+  const isMobile = size.width < 768;
+  const billboardX = isMobile ? 0 : BILLBOARD_X;
+  const cardScale = isMobile ? 0.72 : 1;
+  const cardY = isMobile ? 0 : 0.3;
 
   useFrame(() => {
     if (groupRef.current) {
@@ -145,13 +149,15 @@ export function Scene() {
       <MatrixBackground cardCount={cards.length} cardSpacing={CARD_DISTANCE} />
       {cards.map((card, index) => {
         const side = index % 2 === 0 ? -1 : 1;
+        const xPosition = isMobile ? 0 : billboardX * side;
         return (
           // Alternate left/right so cards look like city billboards.
           // Camera moves through the center lane on Z.
         <FloatingCard
           key={card.title}
-          position={[BILLBOARD_X * side, 0.3, -CARD_DISTANCE * index]}
+          position={[xPosition, cardY, -CARD_DISTANCE * index]}
           rotation={[0, 0, 0]}
+          scale={[cardScale, cardScale, cardScale]}
           card={card}
         />
         );

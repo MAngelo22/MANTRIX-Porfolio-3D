@@ -4,13 +4,14 @@ import { Text, Button,  Html, useTexture } from "@react-three/drei";
 interface FloatingCardProps {
   position: [number, number, number];
   rotation: [number, number, number];
+  scale?: [number, number, number];
   card: {
     title: string;
     content: any;
   };
 }
 
-export function FloatingCard({ position, rotation, card }: FloatingCardProps) {
+export function FloatingCard({ position, rotation, scale = [1, 1, 1], card }: FloatingCardProps) {
   const [hovered, setHovered] = useState<string | null>(null);
   const [currentProject, setCurrentProject] = useState(0);
 
@@ -18,7 +19,7 @@ export function FloatingCard({ position, rotation, card }: FloatingCardProps) {
     if (url.startsWith("mailto:")) {
       window.location.href = url;
     } else {
-      window.open(url, "_blank");
+      window.open(url, "_self");
     }
   };
 
@@ -385,7 +386,7 @@ export function FloatingCard({ position, rotation, card }: FloatingCardProps) {
   };
 
   return (
-    <group position={position} rotation={rotation}>
+    <group position={position} rotation={rotation} scale={scale}>
       {/* Glow effect */}
       <mesh position={[0, 0, -0.05]}>
         <planeGeometry args={[4.2, 6.2]} />
